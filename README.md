@@ -6,12 +6,12 @@ Este projeto serve como um exemplo prático de manipulação de estado local e e
 ### Funcionalidades
 
 O aplicativo oferece as seguintes funcionalidades principais:
-**Adicionar tarefas:** Criação de novas tarefas com `Título` e `Descrição` através de uma caixa de dialogo personalizada.
-**Listagem de Tarefas:** Visualização de todas as tarefas cadastradas, incluindo a data e hora de criação.
-**Controle de Status:** Marcar tarefas como "Concluídas" ou "Pendentes" utilizando checkboxes. Tarefas concluídas recebem um estilo visual diferente (tachado).
-**Edição:** Possibilidade de alterar o título e a descrição de uma tarefa existente.
-**Exclusão com Gesto:** Utilize o gesto de deslizar para a esquerda (swipe) para revelar as opções de `Editar` ou `Excluir` a tarefa.
-**Feedback Visual:** Interface limpa com feedback imediato ao usuário (atualização de lista via `setState`).
++ **Adicionar tarefas:** Criação de novas tarefas com `Título` e `Descrição` através de uma caixa de dialogo personalizada.
++ **Listagem de Tarefas:** Visualização de todas as tarefas cadastradas, incluindo a data e hora de criação.
++ **Controle de Status:** Marcar tarefas como "Concluídas" ou "Pendentes" utilizando checkboxes. Tarefas concluídas recebem um estilo visual diferente (tachado).
++ **Edição:** Possibilidade de alterar o título e a descrição de uma tarefa existente.
++ **Exclusão com Gesto:** Utilize o gesto de deslizar para a esquerda (swipe) para revelar as opções de `Editar` ou `Excluir` a tarefa.
++ **Feedback Visual:** Interface limpa com feedback imediato ao usuário (atualização de lista via `setState`).
 
 ### Tecnologias Utilizadas
 
