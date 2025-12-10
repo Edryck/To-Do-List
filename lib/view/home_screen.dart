@@ -30,8 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
   // Mostra a tela de dialogo onde será criado/editado a tarefa
   void _showTaskDialog({TaskModel? taskToEdit}) {
     // Vai definir o texto atual, caso seja edição, pega o título atual, Se não, vazio
-    String initialText = taskToEdit != null ? taskToEdit.title : "";
-    final TextEditingController textController = TextEditingController(text: initialText);
+    String initialTitle = taskToEdit != null ? taskToEdit.title : "";
+    final TextEditingController titleController = TextEditingController(text: initialTitle);
+    String initialDescription = taskToEdit != null ? taskToEdit.description : "";
+    final TextEditingController descriptionController = TextEditingController(text: initialDescription);
 
     // Define o título e o botão baseados no modo
     String dialogTitle = taskToEdit == null ? "Nova Tarefa" : "Editar Tarefa";
@@ -47,14 +49,48 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           title: Text(dialogTitle),
-          content: Padding(
-            padding: const EdgeInsets.all(1),
-            child: TextField(
-              controller: textController,
-              autofocus: true,
-              decoration: const InputDecoration(
-                hintText: "O que você precisa fazer?"
-              ),
+          content: SizedBox(
+            // Define que o Dialog terá 35% da largura da tela
+            width: MediaQuery.of(context).size.width * 0.35,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Título da Tarefa",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                // Campo de texto para adicionar o título da tarefa
+                TextField(
+                  controller: titleController,
+                  autofocus: true,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Qual o título da tarefa?",
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  "Descrição da Tarefa:",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                // Campo de texto para adicionar a descrição da tarefa
+                TextField(
+                  maxLines: 3,
+                  
+                  controller: descriptionController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "O que você precisa fazer?",
+                  ),
+                ),
+              ],
             ),
           ),
           actions: [
@@ -66,17 +102,23 @@ class _HomeScreenState extends State<HomeScreen> {
             ElevatedButton(
               style: flatButtonStyle,
               onPressed: () {
-                final String newTitle = textController.text;
+                final String newTitle = titleController.text;
+                final String newDescription = descriptionController.text;
                 // Não pode ser vazio
                 if (newTitle.isNotEmpty) {
+                  // Se a tarefa para editar for nula, então irá criar uma nova tarefa
                   if (taskToEdit == null) {
-                    repository.addTask(newTitle);
-                  } else {
-                    if (newTitle != taskToEdit.title) {
-                      repository.editTask(taskToEdit, newTitle);
+                    repository.addTask(newTitle, newDescription);
+                  } 
+                  // Se não, irá editar a tarefa
+                  else {
+                    // Verifica se o título ou a descrição são diferente para altera-los
+                    if (newTitle != taskToEdit.title || newDescription != taskToEdit.description) {
+                      repository.editTask(taskToEdit, newTitle, newDescription);
                     }
                   }
                 }
+                // Atualiza a lista de tarefas e fecha
                 _refreshList();
                 Navigator.pop(context);
               }, 

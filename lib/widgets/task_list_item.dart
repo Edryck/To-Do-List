@@ -22,10 +22,11 @@ class TaskListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: Slidable(
+        // Aparece no final do item ao segurar e arrastar para a esquerda
         endActionPane: ActionPane(
-          motion: const StretchMotion(), 
+          motion: const DrawerMotion(), 
           children: [
             SlidableAction(
               onPressed: onDelete,
@@ -54,15 +55,31 @@ class TaskListItem extends StatelessWidget {
                 ? TextDecoration.lineThrough // Caso seja marcado como concluído, risca o texto
                 : TextDecoration.none,
               color: task.isCompleted ? Colors.grey : Colors.black,
+              fontSize: 18,
             ),
           ),
 
-          // Data de criação é o subtítulo
-          subtitle: Text(
-            "${task.createdAt.day}/${task.createdAt.month}/${task.createdAt.year} - ${task.createdAt.hour}:${task.createdAt.minute}",
-            style: const TextStyle(
-              fontSize: 12
-            ),
+          // O subtitulo é a descrição da tarefa e a data de criação dela
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                task.description,
+                style: TextStyle(
+                  decoration: task.isCompleted
+                    ? TextDecoration.lineThrough // Caso seja marcado como concluído, risca o texto
+                    : TextDecoration.none,
+                  color: task.isCompleted ? Colors.grey : Colors.black,
+                  fontSize: 14,
+                ),
+              ),
+              Text(
+                "${task.createdAt.day}/${task.createdAt.month}/${task.createdAt.year} - ${task.createdAt.hour}:${task.createdAt.minute}",
+                style: const TextStyle(
+                  fontSize: 12
+                ),
+              ),
+            ],
           ),
         ),
       ),

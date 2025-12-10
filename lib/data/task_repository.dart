@@ -8,16 +8,19 @@ class TaskRepository {
   List<TaskModel> get tasks => _tasks;
 
   // Método para adicionar uma nova tarefa
-  void addTask(String title) {
+  void addTask(String title, String description) {
     final newTask = TaskModel(
       title: title, 
+      description: description,
       createdAt: DateTime.now(),
     );
     _tasks.add(newTask);
   }
 
-  void editTask(TaskModel task, String newTitle) {
+  // Método para editar uma tarefa
+  void editTask(TaskModel task, String newTitle, String newDescription) {
     task.title = newTitle;
+    task.description = newDescription;
   }
 
   // Método para excluir uma tarefa
